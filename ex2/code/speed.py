@@ -2,17 +2,17 @@ import cv2
 
 from ultralytics import solutions
 
-cap = cv2.VideoCapture("traffic1.mp4")
+cap = cv2.VideoCapture("../video/traffic1.mp4")
 assert cap.isOpened(), "Error reading video file"
 
 # Video writer
 w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FPS))
-video_writer = cv2.VideoWriter("speed_management.avi", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
+video_writer = cv2.VideoWriter("../ouput/speed_management.avi", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
 
 # Initialize speed estimation object
 speedestimator = solutions.SpeedEstimator(
     show=True,  # display the output
-    model="yolov8n.pt",  # path to the YOLO11 model file.
+    model="../model/yolov8n.pt",  # path to the YOLO11 model file.
     fps=fps,  # adjust speed based on frame per second
     max_speed=200,  # cap speed to a max value (km/h) to avoid outliers
     # max_hist=5,  # minimum frames object tracked before computing speed
