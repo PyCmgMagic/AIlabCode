@@ -7,14 +7,15 @@ assert cap.isOpened(), "Error reading video file"
 
 # Video writer
 w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FPS))
-video_writer = cv2.VideoWriter("../output/visioneye_output.mp4", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
+video_writer = cv2.VideoWriter("../output/visioneye_output_x.mp4", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
 
 # Initialize vision eye object
 visioneye = solutions.VisionEye(
-    show=True,  # display the output
-    model="../model/yolov8m.pt",  # use any model that Ultralytics support, i.e, YOLOv10
+    show=False,  # display the output
+    model="../model/yolo11x.pt",  # use any model that Ultralytics support, i.e, YOLOv10
     # classes=[0, 2],  # generate visioneye view for specific classes
-    vision_point=(700, 600),  # the point, where vision will view objects and draw tracks
+    vision_point=(700, 600), 
+    device=0, # the point, where vision will view objects and draw tracks
     tracker="bytetrack.yaml"
 )
 

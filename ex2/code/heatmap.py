@@ -7,7 +7,7 @@ assert cap.isOpened(), "Error reading video file"
 
 # Video writer
 w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FPS))
-video_writer = cv2.VideoWriter("../output/heatmap_output.mp4", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
+video_writer = cv2.VideoWriter("../output/heatmap_output_x.mp4", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
 
 # For object counting with heatmap, you can pass region points.
 # region_points = [(20, 400), (1080, 400)]                                      # line points
@@ -16,9 +16,10 @@ video_writer = cv2.VideoWriter("../output/heatmap_output.mp4", cv2.VideoWriter_f
 
 # Initialize heatmap object
 heatmap = solutions.Heatmap(
-    show=True,  # display the output
-    model="../model/yolov8n.pt",  # path to the YOLO11 model file
-    colormap=cv2.COLORMAP_HOT,  # colormap of heatmap
+    show=False,  # display the output
+    model="../model/yolo11x.pt",  # path to the YOLO11 model file
+    colormap=cv2.COLORMAP_HOT,
+    device=0,  # colormap of heatmap
     # region=region_points,  # object counting with heatmaps, you can pass region_points
     # classes=[0, 2],  # generate heatmap for specific classes i.e person and car.
 )
