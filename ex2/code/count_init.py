@@ -11,7 +11,7 @@ region_points = [(400, 700), (1400, 700), (1400, 580), (400, 580)]  # rectangle 
 
 # Video writer
 w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FPS))
-video_writer = cv2.VideoWriter("../ouput/object_counting_output_yolov8n_0.2.avi", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
+video_writer = cv2.VideoWriter("../output/object_counting_output_yolov8n_0.2.mp4", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
 
 # Initialize object counter object
 counter = solutions.ObjectCounter(

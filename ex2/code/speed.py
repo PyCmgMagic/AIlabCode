@@ -7,7 +7,7 @@ assert cap.isOpened(), "Error reading video file"
 
 # Video writer
 w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FPS))
-video_writer = cv2.VideoWriter("../ouput/speed_management.avi", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
+video_writer = cv2.VideoWriter("../output/speed_management.mp4", cv2.VideoWriter_fourcc(*"mp4v"), fps, (w, h))
 
 # Initialize speed estimation object
 speedestimator = solutions.SpeedEstimator(
