@@ -2,32 +2,28 @@ import os
 import shutil
 import random
 from pathlib import Path
-
-# --- 配置路径 ---
-# 源数据路径 (NFS挂载点，假设里面有 images 和 labels 文件夹)
-# 注意：你需要去 /mnt/nfsdir 里面看一下具体文件夹结构，这里假设是 /mnt/nfsdir/data
-source_root = '/mnt/nfsdir'  
-# 目标路径 (你的本地目录)
+#配置路径
+source_root = '/mnt/nfsdir/DistributionBoxUnclosed'  
+#目标路径
 target_root = './my_dataset'
 
-# 创建目录结构
+#创建目录结构
 dirs = ['images/train', 'images/val', 'labels/train', 'labels/val']
 for d in dirs:
     os.makedirs(os.path.join(target_root, d), exist_ok=True)
 
-# --- 获取所有图片 ---
-# 假设源图片在 source_root/images 下
+#获取所有图片
 image_files = [f for f in os.listdir(os.path.join(source_root, 'images')) if f.endswith(('.jpg', '.png', '.jpeg'))]
 random.shuffle(image_files) # 打乱顺序
 
-# --- 划分数据集 ---
+#划分数据集
 val_count = 55 # 要求不少于50个，这里取55
 val_files = image_files[:val_count]
 train_files = image_files[val_count:]
 
 print(f"训练集数量: {len(train_files)}, 验证集数量: {len(val_files)}")
 
-# --- 复制文件函数 ---
+#复制文件函数
 def copy_files(file_list, split_type):
     for img_name in file_list:
         # 构造源文件路径
