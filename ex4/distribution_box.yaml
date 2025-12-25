@@ -1,11 +1,12 @@
-# 这里的路径建议写绝对路径，或者相对于运行目录的路径
-path: ./my_dataset  # 数据集根目录
-train: images/train # 训练集图片 (相对于path)
-val: images/val     # 验证集图片 (相对于path)
+# 数据集根目录
+path: /mnt/nfsdir/DistributionBoxUnclosed
 
-# 类别数量
+# 训练集、验证集、测试集图片路径 (相对于 path)
+train: images/train
+val: images/val
+test: images/test
+
+# 类别设置
 nc: 1
-
-# 类别名称 (根据 Slide 3 显示为 unclosed，对应“门未关闭”)
 names:
   0: unclosed
