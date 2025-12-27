@@ -14,8 +14,46 @@ from matplotlib.patches import Rectangle
 import seaborn as sns
 
 # 设置中文字体和绘图风格
-matplotlib.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'Arial Unicode MS']
+# 尝试多个字体选项以支持中文显示，使用多字体回退机制
+import matplotlib.font_manager as fm
+import warnings
+
+# 抑制缺失字形警告
+warnings.filterwarnings('ignore', category=UserWarning, message='.*Glyph.*missing from current font.*')
+
+font_options = [
+    'Noto Sans CJK SC',
+    'WenQuanYi Zen Hei',
+    'SimHei',
+    'Microsoft YaHei',
+    'Droid Sans Fallback',
+    'DejaVu Sans',
+    'Liberation Sans'
+]
+
+# 检查系统可用字体
+available_fonts = {f.name for f in fm.fontManager.ttflist}
+selected_font = None
+
+for font in font_options:
+    if font in available_fonts:
+        selected_font = font
+        break
+
+# 使用多字体回退列表
+if selected_font:
+    # 将选中的字体放在首位，其他字体作为备选
+    fallback_fonts = [selected_font, 'DejaVu Sans', 'Noto Sans CJK SC']
+    # 去重
+    fallback_fonts = list(dict.fromkeys(fallback_fonts))
+    matplotlib.rcParams['font.sans-serif'] = fallback_fonts
+else:
+    matplotlib.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Noto Sans CJK SC']
+
 matplotlib.rcParams['axes.unicode_minus'] = False
+matplotlib.rcParams['font.size'] = 10
+plt.style.use('seaborn-v0_8-darkgrid')
+sns.set_palette("husl")
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 
@@ -374,13 +412,13 @@ def create_before_after_comparison(results):
 
 def create_combined_effect_analysis(results):
     """
-    创建组合效果分析图
+    Create combined effect analysis chart
     """
     baseline = next((r for r in results if 'exp1' in r['experiment']), None)
     combined = next((r for r in results if 'exp7' in r['experiment']), None)
 
     if not baseline or not combined:
-        print("⚠️  跳过组合效果分析")
+        print("⚠️  Skipping combined effect analysis")
         return
 
     individual_exps = {
@@ -469,27 +507,27 @@ def create_combined_effect_analysis(results):
     plt.tight_layout()
     output_path = os.path.join(OUTPUT_DIR, '5_combined_effect_analysis.png')
     plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
-    print(f"✓ 组合效果分析图: {output_path}")
+    print(f"✓ Combined effect analysis saved: {output_path}")
     plt.close()
 
 
 def create_model_size_comparison(results):
     """
-    创建模型大小对比的详细图
+    Create detailed model size comparison chart
     """
     nano = next((r for r in results if 'exp1' in r['experiment']), None)
     small = next((r for r in results if 'exp2' in r['experiment']), None)
 
     if not nano or not small:
-        print("⚠️  跳过模型大小对比")
+        print("⚠️  Skipping model size comparison")
         return
 
     fig, axes = plt.subplots(1, 3, figsize=(18, 6))
-    fig.suptitle('不同模型尺寸性能对比分析', fontsize=16, fontweight='bold')
+    fig.suptitle('Model Size Performance Comparison Analysis', fontsize=16, fontweight='bold')
 
     metrics = ['mAP50', 'mAP50-95', 'Precision', 'Recall', 'F1-Score']
 
-    # 图1：直接对比
+    # Chart 1: Direct comparison
     ax1 = axes[0]
     nano_values = [nano[m] for m in metrics]
     small_values = [small[m] for m in metrics]
@@ -498,7 +536,7 @@ def create_model_size_comparison(results):
     width = 0.35
 
     bars1 = ax1.bar(x - width/2, nano_values, width,
-                   label='Nano (轻量)', color='#95E1D3',
+                   label='Nano (Lightweight)', color='#95E1D3',
                    edgecolor='black', linewidth=1.2)
     bars2 = ax1.bar(x + width/2, small_values, width,
                    label='Small (标准)', color='#F38181',
@@ -569,7 +607,7 @@ def create_model_size_comparison(results):
     plt.tight_layout()
     output_path = os.path.join(OUTPUT_DIR, '6_model_size_comparison_detailed.png')
     plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
-    print(f"✓ 模型尺寸对比详细图: {output_path}")
+    print(f"✓ Model size detailed comparison saved: {output_path}")
     plt.close()
 
 
@@ -691,7 +729,7 @@ def create_comprehensive_summary(results):
     plt.tight_layout()
     output_path = os.path.join(OUTPUT_DIR, '7_comprehensive_summary.png')
     plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
-    print(f"✓ 综合总结图: {output_path}")
+    print(f"✓ Comprehensive summary saved: {output_path}")
     plt.close()
 
 

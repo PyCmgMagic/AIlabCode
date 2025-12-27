@@ -1,0 +1,117 @@
+[
+  {
+    "config_name": "yolo_n_baseline",
+    "model_size": "n",
+    "train_params": {
+      "data": "distribution_box.yaml",
+      "imgsz": 640,
+      "device": 0,
+      "epochs": 50,
+      "batch": 16,
+      "name": "exp1_yolo_n_baseline"
+    },
+    "start_time": "2025-12-26 19:42:22",
+    "duration_seconds": 683.215102,
+    "save_dir": "/opt/hyhal/AIlab/AIlabCode/ex4/runs/detect/exp1_yolo_n_baseline"
+  },
+  {
+    "config_name": "yolo_s_baseline",
+    "model_size": "s",
+    "train_params": {
+      "data": "distribution_box.yaml",
+      "imgsz": 640,
+      "device": 0,
+      "epochs": 50,
+      "batch": 16,
+      "name": "exp2_yolo_s_baseline"
+    },
+    "start_time": "2025-12-26 19:53:46",
+    "duration_seconds": 1123.744402,
+    "save_dir": "/opt/hyhal/AIlab/AIlabCode/ex4/runs/detect/exp2_yolo_s_baseline"
+  },
+  {
+    "config_name": "yolo_n_batch8",
+    "model_size": "n",
+    "train_params": {
+      "data": "distribution_box.yaml",
+      "imgsz": 640,
+      "device": 0,
+      "epochs": 50,
+      "batch": 8,
+      "name": "exp3_yolo_n_batch8"
+    },
+    "start_time": "2025-12-26 20:12:29",
+    "duration_seconds": 901.705061,
+    "save_dir": "/opt/hyhal/AIlab/AIlabCode/ex4/runs/detect/exp3_yolo_n_batch8"
+  },
+  {
+    "config_name": "yolo_n_lr0.001",
+    "model_size": "n",
+    "train_params": {
+      "data": "distribution_box.yaml",
+      "imgsz": 640,
+      "device": 0,
+      "epochs": 50,
+      "batch": 16,
+      "lr0": 0.001,
+      "name": "exp4_yolo_n_lr0.001"
+    },
+    "start_time": "2025-12-26 20:27:31",
+    "duration_seconds": 656.874328,
+    "save_dir": "/opt/hyhal/AIlab/AIlabCode/ex4/runs/detect/exp4_yolo_n_lr0.001"
+  },
+  {
+    "config_name": "yolo_n_adamw",
+    "model_size": "n",
+    "train_params": {
+      "data": "distribution_box.yaml",
+      "imgsz": 640,
+      "device": 0,
+      "epochs": 50,
+      "batch": 16,
+      "optimizer": "AdamW",
+      "name": "exp5_yolo_n_adamw"
+    },
+    "start_time": "2025-12-26 20:38:28",
+    "duration_seconds": 657.218076,
+    "save_dir": "/opt/hyhal/AIlab/AIlabCode/ex4/runs/detect/exp5_yolo_n_adamw"
+  },
+  {
+    "config_name": "yolo_n_augment",
+    "model_size": "n",
+    "train_params": {
+      "data": "distribution_box.yaml",
+      "imgsz": 640,
+      "device": 0,
+      "epochs": 50,
+      "batch": 16,
+      "hsv_h": 0.02,
+      "hsv_s": 0.8,
+      "hsv_v": 0.5,
+      "degrees": 15.0,
+      "name": "exp6_yolo_n_augment"
+    },
+    "start_time": "2025-12-26 20:49:25",
+    "duration_seconds": 657.350055,
+    "save_dir": "/opt/hyhal/AIlab/AIlabCode/ex4/runs/detect/exp6_yolo_n_augment"
+  },
+  {
+    "config_name": "yolo_n_combined",
+    "model_size": "n",
+    "train_params": {
+      "data": "distribution_box.yaml",
+      "imgsz": 640,
+      "device": 0,
+      "epochs": 50,
+      "batch": 8,
+      "lr0": 0.001,
+      "optimizer": "AdamW",
+      "hsv_h": 0.02,
+      "hsv_s": 0.8,
+      "name": "exp7_yolo_n_combined"
+    },
+    "start_time": "2025-12-26 21:00:23",
+    "duration_seconds": 907.552604,
+    "save_dir": "/opt/hyhal/AIlab/AIlabCode/ex4/runs/detect/exp7_yolo_n_combined"
+  }
+]
