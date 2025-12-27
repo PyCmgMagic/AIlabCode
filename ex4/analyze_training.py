@@ -12,8 +12,44 @@ import glob
 from pathlib import Path
 
 # 设置中文字体
-matplotlib.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'Arial Unicode MS']
+# 尝试多个字体选项以支持中文显示，使用多字体回退机制
+import matplotlib.font_manager as fm
+import warnings
+
+# 抑制缺失字形警告
+warnings.filterwarnings('ignore', category=UserWarning, message='.*Glyph.*missing from current font.*')
+
+font_options = [
+    'Noto Sans CJK SC',
+    'WenQuanYi Zen Hei',
+    'SimHei',
+    'Microsoft YaHei',
+    'Droid Sans Fallback',
+    'DejaVu Sans',
+    'Liberation Sans'
+]
+
+# 检查系统可用字体
+available_fonts = {f.name for f in fm.fontManager.ttflist}
+selected_font = None
+
+for font in font_options:
+    if font in available_fonts:
+        selected_font = font
+        break
+
+# 使用多字体回退列表
+if selected_font:
+    # 将选中的字体放在首位，其他字体作为备选
+    fallback_fonts = [selected_font, 'DejaVu Sans', 'Noto Sans CJK SC']
+    # 去重
+    fallback_fonts = list(dict.fromkeys(fallback_fonts))
+    matplotlib.rcParams['font.sans-serif'] = fallback_fonts
+else:
+    matplotlib.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Noto Sans CJK SC']
+
 matplotlib.rcParams['axes.unicode_minus'] = False
+matplotlib.rcParams['font.size'] = 10
 
 # 创建输出目录
 OUTPUT_DIR = 'training_curves'
